@@ -18,6 +18,7 @@ const allowedOrigins = Array.from(new Set([
   env.clientUrl,
   'http://localhost:3000',
   'http://127.0.0.1:3000',
+  'https://meeting-room-app-sigma.vercel.app',
 ]));
 
 // Security
