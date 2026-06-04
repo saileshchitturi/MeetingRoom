@@ -10,6 +10,10 @@ const globalLimiter = rateLimit({
   },
   standardHeaders: true,
   legacyHeaders: false,
+  keyGenerator: (req) => {
+    return req.headers['x-forwarded-for']?.split(',')[0] || req.ip;
+  },
+  validate: { xForwardedForHeader: false },
 });
 
 const authLimiter = rateLimit({
@@ -19,6 +23,10 @@ const authLimiter = rateLimit({
     success: false,
     message: 'Too many login attempts, please try again after 15 minutes.',
   },
+  keyGenerator: (req) => {
+    return req.headers['x-forwarded-for']?.split(',')[0] || req.ip;
+  },
+  validate: { xForwardedForHeader: false },
 });
 
 module.exports = { globalLimiter, authLimiter };
